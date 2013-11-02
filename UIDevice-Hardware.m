@@ -106,4 +106,46 @@
     return UIDeviceFamilyUnknown;
 }
 
+- (UIDeviceGenerationModel) deviceGenerationModel
+{
+    NSString *modelIdentifier = [self modelIdentifier];
+    
+    if ([modelIdentifier hasPrefix:@"iPhone1"])    return UIDeviceGenerationModeliPhone3G;
+    if ([modelIdentifier hasPrefix:@"iPhone2"])    return UIDeviceGenerationModeliPhone3GS;
+    if ([modelIdentifier hasPrefix:@"iPhone3"])    return UIDeviceGenerationModeliPhone4;
+    if ([modelIdentifier hasPrefix:@"iPhone4"])    return UIDeviceGenerationModeliPhone4S;
+    if ([modelIdentifier hasPrefix:@"iPhone5"])    return UIDeviceGenerationModeliPhone5;
+    if ([modelIdentifier hasPrefix:@"iPhone6"])    return UIDeviceGenerationModeliPhone5S;
+    
+    // iPad http://theiphonewiki.com/wiki/IPad
+    
+    if ([modelIdentifier hasPrefix:@"iPad1,1"])      return UIDeviceGenerationModeliPad1;
+    if ([modelIdentifier hasPrefix:@"iPad2,1"])      return UIDeviceGenerationModeliPad2;
+    if ([modelIdentifier hasPrefix:@"iPad3,1"])      return UIDeviceGenerationModeliPad3;
+    if ([modelIdentifier hasPrefix:@"iPad3,4"])      return UIDeviceGenerationModeliPad4;
+    
+    // iPad Mini http://theiphonewiki.com/wiki/IPad_mini
+    
+    if ([modelIdentifier hasPrefix:@"iPad2,5"])      return UIDeviceGenerationModeliPadMini1;
+    if ([modelIdentifier hasPrefix:@"iPad2,6"])      return UIDeviceGenerationModeliPadMini1;
+    if ([modelIdentifier hasPrefix:@"iPad2,7"])      return UIDeviceGenerationModeliPadMini1;
+    
+    // iPod http://theiphonewiki.com/wiki/IPod
+    
+    if ([modelIdentifier hasPrefix:@"iPod1"])      return UIDeviceGenerationModeliPod1;
+    if ([modelIdentifier hasPrefix:@"iPod2"])      return UIDeviceGenerationModeliPod1;
+    if ([modelIdentifier hasPrefix:@"iPod3"])      return UIDeviceGenerationModeliPod1;
+    if ([modelIdentifier hasPrefix:@"iPod4"])      return UIDeviceGenerationModeliPod1;
+    if ([modelIdentifier hasPrefix:@"iPod5"])      return UIDeviceGenerationModeliPod1;
+    
+    if ([modelIdentifier hasSuffix:@"86"] || [modelIdentifier isEqual:@"x86_64"])
+    {
+        BOOL smallerScreen = ([[UIScreen mainScreen] bounds].size.width < 768.0);
+        return (smallerScreen ? UIDeviceGenerationModeliPhoneSimulator : UIDeviceGenerationModeliPadSimulator);
+    }
+    return UIDeviceGenerationModelUnknown;
+}
+
+
+
 @end
